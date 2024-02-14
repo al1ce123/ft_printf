@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/libft.h"
+#include "../inc/ft_printf.h"
 
-int	ft_ptr_len(unsigned long long n)
+int	ptr_len(unsigned long long n)
 {
 	int	len;
 
@@ -25,23 +25,23 @@ int	ft_ptr_len(unsigned long long n)
 	return (len);
 }
 
-void	ft_get_ptr(unsigned long long n)
+void	get_ptr(unsigned long long n)
 {
 	if (n >= 16)
 	{
-		ft_get_ptr(n / 16);
-		ft_get_ptr(n % 16);
+		get_ptr(n / 16);
+		get_ptr(n % 16);
 	}
 	else
 	{
 		if (n <= 9)
-			ft_print_char(n + '0');
+			print_char(n + '0');
 		else
-			ft_print_char(n - 10 + 'a');
+			print_char(n - 10 + 'a');
 	}
 }
 
-int	ft_print_ptr(unsigned long long n)
+int	print_ptr(unsigned long long n)
 {
 	int	len;
 
@@ -57,8 +57,8 @@ int	ft_print_ptr(unsigned long long n)
 	}
 	else
 	{
-		ft_get_ptr(n);
-		len += ft_ptr_len(n);
+		get_ptr(n);
+		len += ptr_len(n);
 	}
 	return (len);
 }

@@ -10,26 +10,26 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/libft.h"
+#include "../inc/ft_printf.h"
 
-int	ft_parser(va_list args, char c)
+int	parser(va_list args, char c, t_flags *f)
 {
 	int	len;
 
 	len = 0;
 	if (c == 'c')
-		len += ft_print_char(va_arg(args, int));
+		len += print_char(va_arg(args, int));
 	else if (c == 's')
-		len += ft_print_str(va_arg(args, char *));
+		len += print_str(va_arg(args, char *));
 	else if (c == 'd' || c == 'i')
-		len += ft_print_nbr(va_arg(args, int));
+		len += print_nbr(va_arg(args, int));
 	else if (c == 'u')
-		len += ft_print_u(va_arg(args, unsigned int));
+		len += print_u(va_arg(args, unsigned int));
 	else if (c == 'p')
-		len += ft_print_ptr(va_arg(args, unsigned long));
+		len += print_ptr(va_arg(args, unsigned long));
 	else if (c == 'x' || c == 'X')
-		len += ft_print_hex(va_arg(args, unsigned int), c);
+		len += print_hex(va_arg(args, unsigned int), c, f);
 	else if (c == '%')
-		len += ft_print_percent();
+		len += print_percent();
 	return (len);
 }

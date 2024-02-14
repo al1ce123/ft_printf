@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/libft.h"
+#include "../inc/ft_printf.h"
 
-int	ft_hex_len(unsigned	int n)
+int	hex_len(unsigned	int n)
 {
 	int	len;
 
@@ -25,39 +25,56 @@ int	ft_hex_len(unsigned	int n)
 	return (len);
 }
 
-int	ft_get_hex(unsigned int n, const char c)
+int	get_hex(unsigned int n, const char c)
 {
 	int	x;
 
 	x = 0;
 	if (n >= 16)
 	{
-		if (ft_get_hex(n / 16, c) == -1)
+		if (get_hex(n / 16, c) == -1)
 			return (-1);
-		if (ft_get_hex(n % 16, c) == -1)
+		if (get_hex(n % 16, c) == -1)
 			return (-1);
 	}
 	else
 	{
 		if (n <= 9)
-			x = ft_print_char(n + '0');
+			x = print_char(n + '0');
 		else
 		{
 			if (c == 'x')
-				x = ft_print_char(n - 10 + 'a');
+				x = print_char(n - 10 + 'a');
 			if (c == 'X')
-				x = ft_print_char(n - 10 + 'A');
+				x = print_char(n - 10 + 'A');
 		}
 		if (x == -1)
 			return (-1);
 	}
-	return (ft_hex_len(n));
+	return (hex_len(n));
 }
 
-int	ft_print_hex(unsigned int n, const char c)
+int	print_hex(unsigned int n, const char c, t_flags *f)
 {
+	int res;
+
+	res = 0;
 	if (n == 0)
-		return (ft_print_char('0'));
+	{
+		if (f->hashtag && c == 'x')
+			res += write(1, "0x", 2);
+		else if (f->hashtag && c == 'X')
+			res += write(1, "0X", 2);
+		res += print_char('0');
+		return (res);
+	}
 	else
-		return (ft_get_hex(n, c));
+	{
+		if (f->hashtag && c == 'x')
+			res += write(1, "0x", 2);
+		else if (f->hashtag && c == 'X')
+			res += write(1, "0X", 2);
+		res += 	get_hex(n, c);
+		return (res);
+	}
 }

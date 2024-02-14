@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/libft.h"
+#include "../inc/ft_printf.h"
 
-int	ft_nbrlen(int n)
+int	nbrlen(int n)
 {
 	int	res;
 
@@ -25,25 +25,25 @@ int	ft_nbrlen(int n)
 	return (res);
 }
 
-int	ft_print_nbr(int n)
+int	print_nbr(int n)
 {
 	int	len;
 	int	res;
 
-	len = ft_nbrlen(n);
+	len = nbrlen(n);
 	res = 0;
-	if (n == -2147483648)
-		return (res += ft_print_str("-2147483648"));
-	if (n < 0 && n != -2147483648)
+	if (n == MIN_INT)
+		return (res += print_str("-2147483648"));
+	if (n < 0 && n != MIN_INT)
 	{
-		res += ft_print_char('-');
+		res += print_char('-');
 		if (res == -1)
 			return (-1);
 		n = n * (-1);
 	}
 	while (len != 0)
 	{
-		res += ft_print_char(n / len + '0');
+		res += print_char(n / len + '0');
 		if (res == -1)
 			return (-1);
 		n = n % len;
